@@ -3,16 +3,21 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { Profile } from 'passport';
 import { UsersService } from '../../users/users.service';
+import { ConfigService } from '@nestjs/config';
 import { UserEntity } from '../../users/users.entity';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(OAuth2Strategy, 'google') {
-  constructor(private readonly usersService: UsersService) {
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly configService: ConfigService
+  ) {
     super({
-      clientID: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
-      callbackURL: process.env.BASE_URL + 'auth/google/callback',
+      clientID: configService.get<string>('GOOGLE_ID'),
+      clientSecret: configService.get<string>('GOOGLE_SECRET'),
+      callbackURL: configService.get<string>('GOOGLE_CALLBACK'),
       scope: [
+        // We just need the username
         'https://www.googleapis.com/auth/userinfo.email',
         'https://www.googleapis.com/auth/userinfo.profile',
       ],

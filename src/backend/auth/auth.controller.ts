@@ -1,13 +1,17 @@
 import { Controller, Get, UseGuards, Req, Res } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Request, Response } from 'express';
 import { GoogleGuard, GithubGuard } from '../common/guards';
-import dotenv from 'dotenv';
-
-dotenv.config({ path: '.development.env' });
-const publicURL = process.env.PUBLIC_URL || 'http://localhost';
 
 @Controller('auth')
 export class AuthController {
+  private readonly publicUrl: string;
+
+  constructor(private readonly configService: ConfigService) {
+    this.publicUrl =
+      configService.get<string>('PUBLIC_URL') || 'http://localhost';
+  }
+
   @Get('google')
   @UseGuards(GoogleGuard)
   googleLogin(): void {
@@ -17,7 +21,7 @@ export class AuthController {
   @Get('google/callback')
   @UseGuards(GoogleGuard)
   googleCallback(@Res() res: Response): void {
-    return res.redirect(publicURL);
+    return res.redirect(this.publicUrl);
   }
 
   @Get('github')
@@ -29,7 +33,7 @@ export class AuthController {
   @Get('github/callback')
   @UseGuards(GithubGuard)
   githubCallback(@Res() res: Response): void {
-    return res.redirect(publicURL);
+    return res.redirect(this.publicUrl);
   }
 
   @Get('logout')
@@ -38,6 +42,6 @@ export class AuthController {
     req.session!.destroy((): void => undefined);
     req.logout();
     res.clearCookie('nest');
-    return res.redirect(publicURL);
+    return res.redirect(this.publicUrl);
   }
 }
