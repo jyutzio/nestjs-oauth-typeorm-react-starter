@@ -1,0 +1,48 @@
+{
+  "name": "lini",
+  "version": "0.0.1",
+  "description": "A progressive web app for tracking tv series.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nest start",
+    "start:dev": "nest start --watch"
+  },
+  "author": "jyutzio@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "@nestjs/common": "^6.10.13",
+    "@nestjs/core": "^6.10.13",
+    "@nestjs/passport": "^6.1.1",
+    "@nestjs/platform-express": "^6.10.13",
+    "@nestjs/typeorm": "^6.2.0",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.11.0",
+    "dotenv": "^8.2.0",
+    "express-session": "^1.17.0",
+    "helmet": "^3.21.2",
+    "passport": "^0.4.1",
+    "passport-github2": "^0.1.11",
+    "passport-google-oauth": "^2.0.0",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^6.5.4",
+    "sqlite3": "^4.1.1",
+    "typeorm": "^0.2.22",
+    "typescript": "^3.7.4"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^6.12.9",
+    "@types/express": "^4.17.2",
+    "@types/express-session": "^1.15.16",
+    "@types/helmet": "0.0.45",
+    "@types/node": "^13.1.2",
+    "@types/passport": "^1.0.2",
+    "@types/passport-github2": "^1.2.4",
+    "@types/passport-google-oauth": "^1.0.41",
+    "@typescript-eslint/eslint-plugin": "^2.14.0",
+    "@typescript-eslint/parser": "^2.14.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1"
+  }
+}
