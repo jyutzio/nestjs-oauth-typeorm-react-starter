@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/Login';
 import NotFound from './components/NotFound';
-import { UserEntity } from '../backend/users/users.entity';
+import { User } from '../backend/users/users.entity';
 
 const App: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState<null | UserEntity>(null);
+  const [isLoggedIn, setIsLoggedIn] = React.useState<null | User>(null);
   React.useEffect(() => {
     fetch('http://localhost:3000/profile', {
       mode: 'cors',

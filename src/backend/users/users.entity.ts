@@ -8,8 +8,15 @@ import {
 import { IsNotEmpty } from 'class-validator';
 import { Exclude } from 'class-transformer';
 
+export interface User {
+  id: number;
+  username: string;
+  dateCreated: Date;
+  dateModified: Date;
+}
+
 @Entity()
-export class UserEntity {
+export class UserEntity implements User {
   @PrimaryGeneratedColumn()
   id: number;
 
