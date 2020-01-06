@@ -1,7 +1,7 @@
 {
-  "name": "lini",
+  "name": "nestjs-typeorm-react-starter",
   "version": "0.0.1",
-  "description": "A progressive web app for tracking tv series.",
+  "description": "Nestjs/TypeORM/Reactjs Starter",
   "main": "index.js",
   "scripts": {
     "start": "nest start",
@@ -12,6 +12,10 @@
   },
   "author": "jyutzio@gmail.com",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jyutzio/nestjs-typeorm-react-starter.git"
+  },
   "dependencies": {
     "@nestjs/common": "^6.10.13",
     "@nestjs/core": "^6.10.13",
