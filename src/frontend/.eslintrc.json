@@ -39,10 +39,7 @@
       }
     ],
     "import/extensions": [
-      1,
-      {
-        ".tsx": "never"
-      }
+      0
     ]
   },
   "env": {

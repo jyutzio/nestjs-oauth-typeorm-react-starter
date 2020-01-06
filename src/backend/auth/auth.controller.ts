@@ -3,6 +3,10 @@ import { Request, Response } from 'express';
 import { GoogleGuard, GithubGuard } from '../common/guards';
 import { UserEntity } from '../users/users.entity';
 import { User } from '../common/decorators/user.decorator';
+import dotenv from 'dotenv';
+dotenv.config({ path: '.development.env' });
+
+const publicURL = process.env.PUBLIC_URL || 'http://localhost';
 
 @Controller('auth')
 export class AuthController {
@@ -33,10 +37,16 @@ export class AuthController {
     // ...
   }
 
+  // @Get('github/callback')
+  // @UseGuards(GithubGuard)
+  // githubCallback(@User() user: UserEntity): UserEntity | undefined {
+  //   return user;
+  // }
+
   @Get('github/callback')
   @UseGuards(GithubGuard)
-  githubCallback(@User() user: UserEntity): UserEntity | undefined {
-    return user;
+  githubCallback(@Res() res: Response): void {
+    return res.redirect(publicURL); // import from dotenv
   }
 
   @Get('logout')
@@ -45,6 +55,6 @@ export class AuthController {
     req.session!.destroy((): void => undefined);
     req.logout();
     res.clearCookie('nest');
-    return;
+    return res.redirect(publicURL);
   }
 }

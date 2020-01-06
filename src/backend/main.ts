@@ -14,7 +14,7 @@ const cookieSecret = process.env.COOKIE_SECRET || 'default';
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.use(helmet());
-  app.enableCors();
+  app.enableCors({ origin: 'http://localhost:4200', credentials: true });
   app.use(
     session({
       cookie: {

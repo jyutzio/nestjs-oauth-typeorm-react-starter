@@ -2,7 +2,7 @@ var path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: 'none',
+  mode: 'none', // production
   entry: path.join(__dirname, 'src', 'frontend', 'index.tsx'),
   output: {
     path: path.join(__dirname, 'build'),
@@ -41,5 +41,7 @@ module.exports = {
   },
   devServer: {
     port: 4200,
+    historyApiFallback: true,
   },
+  devtool: 'source-map',
 };
