@@ -13,6 +13,7 @@
     "strict": true,
     "strictPropertyInitialization": false,
     "esModuleInterop": true,
+    "jsx": "react",
   },
   "exclude": [
     "node_modules",
