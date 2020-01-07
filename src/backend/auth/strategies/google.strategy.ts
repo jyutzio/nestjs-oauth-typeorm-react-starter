@@ -13,9 +13,9 @@ export class GoogleStrategy extends PassportStrategy(OAuth2Strategy, 'google') {
     private readonly configService: ConfigService
   ) {
     super({
-      clientID: configService.get<string>('GOOGLE_ID'),
-      clientSecret: configService.get<string>('GOOGLE_SECRET'),
-      callbackURL: configService.get<string>('GOOGLE_CALLBACK'),
+      clientID: configService.get('GOOGLE_ID'),
+      clientSecret: configService.get('GOOGLE_SECRET'),
+      callbackURL: configService.get('GOOGLE_CALLBACK'),
       scope: [
         // We just need the username
         'https://www.googleapis.com/auth/userinfo.email',

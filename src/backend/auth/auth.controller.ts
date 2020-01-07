@@ -5,43 +5,44 @@ import { GoogleGuard, GithubGuard } from '../common/guards';
 
 @Controller('auth')
 export class AuthController {
-  private readonly publicUrl: string;
+  private readonly publicURL: string;
+  private readonly cookieName: string;
 
   constructor(private readonly configService: ConfigService) {
-    this.publicUrl =
-      configService.get<string>('PUBLIC_URL') || 'http://localhost';
+    this.publicURL = configService.get('PUBLIC_URL') || 'http://localhost';
+    this.cookieName = configService.get('PUBLIC_URL') || 'nest';
   }
 
   @Get('google')
   @UseGuards(GoogleGuard)
-  googleLogin(): void {
+  public googleLogin(): void {
     // ...
   }
 
   @Get('google/callback')
   @UseGuards(GoogleGuard)
-  googleCallback(@Res() res: Response): void {
-    return res.redirect(this.publicUrl);
+  public googleCallback(@Res() res: Response): void {
+    return res.redirect(this.publicURL);
   }
 
   @Get('github')
   @UseGuards(GithubGuard)
-  githubLogin(): void {
+  public githubLogin(): void {
     // ...
   }
 
   @Get('github/callback')
   @UseGuards(GithubGuard)
-  githubCallback(@Res() res: Response): void {
-    return res.redirect(this.publicUrl);
+  public githubCallback(@Res() res: Response): void {
+    return res.redirect(this.publicURL);
   }
 
   @Get('logout')
-  logout(@Req() req: Request, @Res() res: Response): void {
+  public logout(@Req() req: Request, @Res() res: Response): void {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     req.session!.destroy((): void => undefined);
     req.logout();
-    res.clearCookie('nest');
-    return res.redirect(this.publicUrl);
+    res.clearCookie(this.cookieName);
+    return res.redirect(this.publicURL);
   }
 }

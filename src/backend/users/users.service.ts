@@ -24,14 +24,14 @@ export class UsersService {
   }
 
   /** Used for session serializer. */
-  async findOne(
+  public async findOne(
     where: FindConditions<UserEntity>
   ): Promise<UserEntity | undefined> {
     return await this.userRepository.findOneOrFail({ where });
   }
 
   /** Used for strategies. */
-  async findOrCreate(
+  public async findOrCreate(
     provider: string,
     providerId: string,
     username?: string

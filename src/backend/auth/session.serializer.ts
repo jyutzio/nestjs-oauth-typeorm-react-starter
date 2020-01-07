@@ -9,14 +9,14 @@ export class SessionSerializer extends PassportSerializer {
     super();
   }
 
-  serializeUser(
+  public serializeUser(
     user: UserEntity,
     done: (err: Error | null, user: number) => void
   ): void {
     done(null, user.id);
   }
 
-  deserializeUser(
+  public deserializeUser(
     id: number,
     done: (err: Error | null, payload?: UserEntity) => void
   ): void {

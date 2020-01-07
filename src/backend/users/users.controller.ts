@@ -7,7 +7,7 @@ import { User } from '../common/decorators/user.decorator';
 export class UsersController {
   @Get('profile')
   @UseGuards(AuthGuard)
-  getProfile(@User() user: UserEntity): UserEntity {
+  public getProfile(@User() user: UserEntity): UserEntity {
     return user;
   }
 }
