@@ -1,12 +1,12 @@
-var path = require('path');
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+require('dotenv').config();
 
 module.exports = {
-  mode: 'none', // production
+  mode: process.env.NODE_ENV, // Production for smaller bundle.
   entry: path.join(__dirname, 'src', 'frontend', 'index.tsx'),
   output: {
     path: path.join(__dirname, 'build'),
-    // publicPath: path.join(__dirname, 'public'),
     filename: 'bundle.js',
   },
   plugins: [

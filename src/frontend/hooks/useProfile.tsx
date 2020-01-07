@@ -18,8 +18,8 @@ export function useProfile(): [User | null, boolean] {
       })
       .then(json => {
         setProfile(json);
-        setIsLoading(false);
       });
+    setIsLoading(false);
   }, []);
 
   return [profile, isLoading];
