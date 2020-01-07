@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
 
-export function HomePage(): ReactElement {
+export function Home(): ReactElement {
   return <div>Home</div>;
 }

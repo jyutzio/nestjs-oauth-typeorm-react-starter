@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
 
-export function PrivatePage(): ReactElement {
+export function Private(): ReactElement {
   return <div>Private Page</div>;
 }

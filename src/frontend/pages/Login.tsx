@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-export function LoginPage(): ReactElement {
+export function Login(): ReactElement {
   return (
     <ul>
       <li>

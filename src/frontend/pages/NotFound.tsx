@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
 
-export function NotFoundPage(): ReactElement {
+export function NotFound(): ReactElement {
   return <div>404</div>;
 }
