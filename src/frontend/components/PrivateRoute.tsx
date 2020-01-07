@@ -7,9 +7,6 @@ interface Props extends RouteProps {
 }
 
 export function PrivateRoute({ user, ...rest }: Props): ReactElement {
-  if (user) {
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    return <Route {...rest} />;
-  }
-  return <Redirect to="/login" />;
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  return user ? <Route {...rest} /> : <Redirect to="/login" />;
 }
