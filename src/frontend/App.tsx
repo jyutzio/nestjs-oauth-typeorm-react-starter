@@ -1,44 +1,36 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from './components/Home';
-import Login from './components/Login';
-import NotFound from './components/NotFound';
-import { User } from '../backend/users/users.entity';
+import { PrivateRoute } from './components/common/PrivateRoute';
+import { HomePage } from './components/HomePage';
+import { LoginPage } from './components/LoginPage';
+import { PrivatePage } from './components/PrivatePage';
+import { NotFoundPage } from './components/NotFoundPage';
+import { AuthButton } from './components/common/AuthButton';
+import { useProfile } from './hooks/useProfile';
 
-const App: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState<null | User>(null);
-  React.useEffect(() => {
-    fetch('http://localhost:3000/profile', {
-      mode: 'cors',
-      credentials: 'include',
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error, status = ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(json => setIsLoggedIn(json));
-  }, []);
+function App(): ReactElement {
+  const [user, userIsLoading] = useProfile();
 
-  const logoutButton = <a href="http://localhost:3000/auth/logout">Logout</a>;
-  const info = isLoggedIn ? (
-    <div>
-      Logged in as {isLoggedIn.username} {logoutButton}
-    </div>
-  ) : (
-    <a href="/login">Login</a>
-  );
+  if (userIsLoading) {
+    return <div>Loading</div>;
+  }
+
   return (
     <Router>
-      {info}
+      <AuthButton user={user} />
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <Route component={NotFound} />
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/login" component={LoginPage} />
+        <PrivateRoute
+          user={user}
+          exact
+          path="/private"
+          component={PrivatePage}
+        />
+        <Route component={NotFoundPage} />
       </Switch>
     </Router>
   );
-};
+}
 
 export default App;
