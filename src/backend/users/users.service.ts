@@ -9,7 +9,7 @@ export class UsersService {
     private readonly userRepository: Repository<UserEntity>
   ) {}
 
-  private async create(
+  private async createUser(
     provider: string,
     providerId: string,
     username = 'Anonymous'
@@ -35,11 +35,11 @@ export class UsersService {
     provider: string,
     providerId: string,
     username?: string
-  ): Promise<UserEntity | void> {
+  ): Promise<UserEntity | undefined> {
     try {
       return await this.findOne({ provider, providerId });
     } catch {
-      return await this.create(provider, providerId, username);
+      return await this.createUser(provider, providerId, username);
     }
   }
 }

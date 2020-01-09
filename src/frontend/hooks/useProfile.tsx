@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { User } from '../../backend/users/users.entity';
+import { UserDto } from '../../backend/users/users.entity';
 
-export function useProfile(): [User | null, boolean] {
+export function useProfile(): [UserDto | null, boolean] {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [profile, setProfile] = useState<User | null>(null);
+  const [profile, setProfile] = useState<UserDto | null>(null);
 
   useEffect(() => {
     fetch('http://localhost:3000/profile', {

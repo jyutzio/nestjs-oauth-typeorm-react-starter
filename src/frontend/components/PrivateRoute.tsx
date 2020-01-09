@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 import { Route, RouteProps, Redirect } from 'react-router-dom';
-import { User } from '../../backend/users/users.entity';
+import { UserDto } from '../../backend/users/users.entity';
 
 interface Props extends RouteProps {
-  user: User | null;
+  user: UserDto | null;
 }
 
 export function PrivateRoute({ user, ...rest }: Props): ReactElement {
