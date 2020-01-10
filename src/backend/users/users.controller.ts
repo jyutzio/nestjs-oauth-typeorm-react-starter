@@ -13,12 +13,4 @@ export class UsersController {
   public getProfile(@User() user: UserEntity): UserEntity {
     return user;
   }
-
-  // @Get('profile')
-  // @UseGuards(AuthGuard)
-  // public async getProfile(
-  //   @User() user: UserEntity
-  // ): Promise<UserEntity | undefined> {
-  //   return await this.userService.findOne(user);
-  // }
 }

@@ -15,8 +15,8 @@ describe('Users', () => {
     })
       .overrideProvider(UsersService)
       .useValue(usersService)
-      .overrideGuard(AuthGuard)
-      .useValue({ canActivate: () => true })
+      // .overrideGuard(AuthGuard)
+      // .useValue({ canActivate: () => true })
       .compile();
 
     app = module.createNestApplication();
@@ -26,10 +26,10 @@ describe('Users', () => {
   it('/GET profile', () => {
     return request(app.getHttpServer())
       .get('/profile')
-      .expect(200)
-      .expect({
-        data: usersService.findOne(),
-      });
+      .expect(403);
+    // .expect({
+    //   data: usersService.findOne(),
+    // });
   });
 
   afterAll(async () => {
