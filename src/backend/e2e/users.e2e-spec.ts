@@ -1,3 +1,4 @@
+/* eslint jest/expect-expect: ["error", { "assertFunctionNames": ["expect", "request"] }] */
 import request from 'supertest';
 import { Test } from '@nestjs/testing';
 import { UsersModule } from '../users/users.module';
@@ -26,10 +27,11 @@ describe('Users', () => {
   it('/GET profile', () => {
     return request(app.getHttpServer())
       .get('/profile')
-      .expect(403);
-    // .expect({
-    //   data: usersService.findOne(),
-    // });
+      .expect({
+        statusCode: 403,
+        error: 'Forbidden',
+        message: 'Forbidden resource',
+      });
   });
 
   afterAll(async () => {

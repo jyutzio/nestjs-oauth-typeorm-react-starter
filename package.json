@@ -1,7 +1,7 @@
 {
-  "name": "nestjs-typeorm-react-starter",
+  "name": "nestjs-oauth-typeorm-react-starter",
   "version": "0.0.1",
-  "description": "Nestjs/TypeORM/Reactjs Starter",
+  "description": "Nestjs/oAuth/TypeORM/Reactjs Starter",
   "main": "index.js",
   "scripts": {
     "dev": "concurrently --kill-others \"npm run backend:dev\" \"npm run frontend:dev\"",
