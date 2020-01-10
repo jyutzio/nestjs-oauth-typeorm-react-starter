@@ -1,27 +1,22 @@
 /* eslint jest/expect-expect: ["error", { "assertFunctionNames": ["expect", "request"] }] */
 import request from 'supertest';
 import { Test } from '@nestjs/testing';
-import { UsersModule } from '../users/users.module';
-import { UsersService } from '../users/users.service';
 import { INestApplication } from '@nestjs/common';
-import { AuthGuard } from '../common/guards/auth.guard';
+import { UsersModule } from './users.module';
 
-describe('Users', () => {
+describe('User Controller', () => {
   let app: INestApplication;
-  const usersService = { findOne: (): string => 'test' };
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
       imports: [UsersModule],
-    })
-      .overrideProvider(UsersService)
-      .useValue(usersService)
-      // .overrideGuard(AuthGuard)
-      // .useValue({ canActivate: () => true })
-      .compile();
+    }).compile();
 
     app = module.createNestApplication();
     await app.init();
+  });
+  afterAll(async () => {
+    await app.close();
   });
 
   it('/GET profile', () => {
@@ -32,9 +27,5 @@ describe('Users', () => {
         error: 'Forbidden',
         message: 'Forbidden resource',
       });
-  });
-
-  afterAll(async () => {
-    await app.close();
   });
 });

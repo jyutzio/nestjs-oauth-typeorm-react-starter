@@ -1,5 +1,5 @@
 import { Connection, Repository } from 'typeorm';
-import { createMockDatabase } from '../utils/mockDatabase';
+import { createMockDatabase } from '../database/database.mock';
 import { UsersService } from './users.service';
 import { UserEntity } from './users.entity';
 
