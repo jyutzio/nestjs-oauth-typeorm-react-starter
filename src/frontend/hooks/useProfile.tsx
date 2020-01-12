@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { UserDto } from '../../backend/users/users.entity';
+import { UserDto } from '../../backend/user/user.entity';
 
 export function useProfile(): [UserDto | null, boolean] {
   const [isLoading, setIsLoading] = useState<boolean>(true);

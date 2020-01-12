@@ -2,34 +2,35 @@
 import request from 'supertest';
 import { Test } from '@nestjs/testing';
 import { INestApplication, ExecutionContext } from '@nestjs/common';
-import { UsersModule } from './users.module';
-import { UsersService } from './users.service';
+import { UserModule } from '../user/user.module';
+import { UserService } from '../user/user.service';
 import { AuthGuard } from '../common/guards';
-import { UserDto } from './users.entity';
+import { UserDto } from '../user/user.entity';
+import { AppModule } from '../app.module';
 
 const mockUser = {
   id: 1,
   username: 'Anonymous',
   provider: 'test',
   providerId: 'test',
-  dateCreated: new Date(),
-  dateModified: new Date(),
+  dateCreated: new Date().toString(),
+  dateModified: new Date().toString(),
 };
 
 const authGuard = jest.fn().mockImplementation((context: ExecutionContext) => {
   context.switchToHttp().getRequest().user = mockUser;
   return true;
 });
+const usersService = { findOne: (): UserDto => mockUser };
 
 describe('User Controller', () => {
   let app: INestApplication;
-  const usersService = { findOne: (): UserDto => mockUser };
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
-      imports: [UsersModule],
+      imports: [UserModule],
     })
-      .overrideProvider(UsersService)
+      .overrideProvider(UserService)
       .useValue(usersService)
       .overrideGuard(AuthGuard)
       .useValue(authGuard)
@@ -46,6 +47,6 @@ describe('User Controller', () => {
     return request(app.getHttpServer())
       .get('/profile')
       .expect(200)
-      .expect({ data: mockUser });
+      .expect(usersService.findOne());
   });
 });

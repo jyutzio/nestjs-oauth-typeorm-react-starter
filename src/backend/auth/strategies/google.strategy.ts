@@ -1,15 +1,15 @@
-import { OAuth2Strategy } from 'passport-google-oauth';
-import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { Profile } from 'passport';
-import { UsersService } from '../../users/users.service';
 import { ConfigService } from '@nestjs/config';
-import { UserEntity } from '../../users/users.entity';
+import { PassportStrategy } from '@nestjs/passport';
+import { Profile } from 'passport';
+import { OAuth2Strategy as Strategy } from 'passport-google-oauth';
+import { UserService } from '../../user/user.service';
+import { UserEntity } from '../../user/user.entity';
 
 @Injectable()
-export class GoogleStrategy extends PassportStrategy(OAuth2Strategy, 'google') {
+export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor(
-    private readonly usersService: UsersService,
+    private readonly userService: UserService,
     private readonly configService: ConfigService
   ) {
     super({
@@ -29,7 +29,7 @@ export class GoogleStrategy extends PassportStrategy(OAuth2Strategy, 'google') {
     _refreshToken: string,
     profile: Profile
   ): Promise<UserEntity> {
-    const user = await this.usersService.findOrCreate(
+    const user = await this.userService.findOrCreate(
       profile.provider,
       profile.id,
       profile.username

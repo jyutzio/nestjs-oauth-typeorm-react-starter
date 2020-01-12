@@ -11,8 +11,8 @@ import { Exclude } from 'class-transformer';
 export class UserDto {
   readonly id: number;
   readonly username: string;
-  readonly dateCreated: Date;
-  readonly dateModified: Date;
+  readonly dateCreated: string;
+  readonly dateModified: string;
 }
 
 @Entity()

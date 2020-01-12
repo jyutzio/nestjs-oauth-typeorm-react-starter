@@ -1,17 +1,17 @@
 import { Connection, Repository } from 'typeorm';
 import { createMockDatabase } from '../database/database.mock';
-import { UsersService } from './users.service';
-import { UserEntity } from './users.entity';
+import { UserService } from './user.service';
+import { UserEntity } from './user.entity';
 
 describe('User Service', () => {
   let db: Connection;
-  let userService: UsersService;
+  let userService: UserService;
   let userRepository: Repository<UserEntity>;
 
   beforeAll(async () => {
     db = await createMockDatabase([UserEntity]);
     userRepository = await db.getRepository(UserEntity);
-    userService = new UsersService(userRepository);
+    userService = new UserService(userRepository);
   });
   afterAll(() => db.close());
 

@@ -1,9 +1,9 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Repository, FindConditions } from 'typeorm';
-import { UserEntity } from './users.entity';
+import { UserEntity } from './user.entity';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(
     @Inject('USER_REPOSITORY')
     private readonly userRepository: Repository<UserEntity>

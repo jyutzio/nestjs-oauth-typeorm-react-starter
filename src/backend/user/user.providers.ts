@@ -1,7 +1,7 @@
 import { Connection, Repository } from 'typeorm';
-import { UserEntity } from './users.entity';
+import { UserEntity } from './user.entity';
 
-export const usersProviders = [
+export const userProviders = [
   {
     provide: 'USER_REPOSITORY',
     useFactory: (connection: Connection): Repository<UserEntity> =>
