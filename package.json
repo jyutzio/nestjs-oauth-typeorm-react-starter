@@ -1,22 +1,24 @@
 {
   "name": "nestjs-oauth-typeorm-react-starter",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Nestjs/oAuth/TypeORM/Reactjs Starter",
   "main": "index.js",
   "scripts": {
     "dev": "concurrently --kill-others \"npm run backend:dev\" \"npm run frontend:dev\"",
+    "build": "npm run backend:build && npm run frontend:build",
     "backend:dev": "nest start --watch",
     "backend:start": "nest start",
+    "backend:build": "nest build",
     "frontend:dev": "webpack-dev-server --inline --hot --progress --content-base public",
     "frontend:build": "webpack",
     "frontend:analyze": "source-map-explorer 'build/*.js'",
     "test": "jest"
   },
   "author": "jyutzio@gmail.com",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jyutzio/nestjs-typeorm-react-starter.git"
+    "url": "https://github.com/jyutzio/nestjs-oauth-typeorm-react-starter.git"
   },
   "dependencies": {
     "@nestjs/common": "^6.10.13",
