@@ -9,33 +9,39 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>
   ) {}
 
+  /**
+   * Creates a user
+   */
   private async createUser(
     provider: string,
     providerId: string,
     username = 'Anonymous'
   ): Promise<UserEntity> {
-    const user = await this.userRepository.create({
+    const user = this.userRepository.create({
       provider,
       providerId,
       username,
     });
-    await this.userRepository.save(user);
-    return user;
+    return this.userRepository.save(user);
   }
 
-  /** Used for session serializer. */
-  public async findOne(
-    where: FindConditions<UserEntity>
-  ): Promise<UserEntity | undefined> {
+  /**
+   * Find a user or throw an exception.
+   * Used by session serializer.
+   */
+  public async findOne(where: FindConditions<UserEntity>): Promise<UserEntity> {
     return await this.userRepository.findOneOrFail({ where });
   }
 
-  /** Used for strategies. */
+  /**
+   * Find or create a user.
+   * Used by auth strategies.
+   */
   public async findOrCreate(
     provider: string,
     providerId: string,
     username?: string
-  ): Promise<UserEntity | undefined> {
+  ): Promise<UserEntity> {
     try {
       return await this.findOne({ provider, providerId });
     } catch {

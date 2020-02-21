@@ -1,29 +1,34 @@
 import { Test } from '@nestjs/testing';
+import { UserModule } from './user.module';
 import { UserController } from './user.controller';
 import { UserEntity } from './user.entity';
+// import { UserService } from './user.service';
 
 describe('User Controller', () => {
   let userController: UserController;
+  // let userService: UserService;
+
   const user: UserEntity = {
     id: 1,
     username: 'Anonymous',
     provider: 'test',
     providerId: 'test',
-    dateCreated: new Date(),
-    dateModified: new Date(),
+    dateCreated: Date.now().toString(),
+    dateModified: Date.now().toString(),
   };
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module = await Test.createTestingModule({
-      controllers: [UserController],
+      imports: [UserModule],
     }).compile();
 
     userController = module.get<UserController>(UserController);
+    // userService = module.get<UserService>(UserService);
   });
 
-  describe('getProfile', () => {
+  describe('getUser', () => {
     it('should return the users profile', async () => {
-      expect(await userController.getProfile(user)).toBe(user);
+      expect(userController.getUser(user)).toBe(user);
     });
   });
 });

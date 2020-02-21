@@ -12,4 +12,15 @@ export const databaseProviders = [
         entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       }),
   },
+  {
+    provide: 'DATABASE_CONNECTION_MOCK',
+    useFactory: async (): Promise<Connection> =>
+      await createConnection({
+        type: 'sqlite',
+        database: ':memory:',
+        synchronize: true,
+        logging: false,
+        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+      }),
+  },
 ];

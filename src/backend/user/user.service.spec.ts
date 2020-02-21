@@ -1,23 +1,24 @@
-import { Connection, Repository } from 'typeorm';
-import { createMockDatabase } from '../database/database.mock';
+import { Test } from '@nestjs/testing';
+import { DatabaseModule } from '../database/database.module';
 import { UserService } from './user.service';
-import { UserEntity } from './user.entity';
+import { userProvidersMock } from './user.providers';
 
 describe('User Service', () => {
-  let db: Connection;
   let userService: UserService;
-  let userRepository: Repository<UserEntity>;
+  // let userRepository: UserRepository;
 
   beforeAll(async () => {
-    db = await createMockDatabase([UserEntity]);
-    userRepository = await db.getRepository(UserEntity);
-    userService = new UserService(userRepository);
+    const module = await Test.createTestingModule({
+      imports: [DatabaseModule],
+      providers: [...userProvidersMock, UserService],
+    }).compile();
+
+    userService = module.get<UserService>(UserService);
+    // userRepository = module.get<Repository<UserEntity>>('USER_REPOSITORY');
   });
-  afterAll(() => db.close());
 
   it('should create a new user', async () => {
     const mockUser = {
-      id: 1,
       username: 'Anonymous',
       provider: 'test',
       providerId: 'test',
@@ -32,7 +33,6 @@ describe('User Service', () => {
 
   it('should create a new user with a specified username', async () => {
     const mockUser = {
-      id: 2,
       username: 'mockUser',
       provider: 'test2',
       providerId: 'test2',

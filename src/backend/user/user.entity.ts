@@ -8,16 +8,10 @@ import {
 import { IsNotEmpty } from 'class-validator';
 import { Exclude } from 'class-transformer';
 
-export class UserDto {
-  readonly id: number;
-  readonly username: string;
-  readonly dateCreated: string;
-  readonly dateModified: string;
-}
-
 @Entity()
 export class UserEntity {
   @PrimaryGeneratedColumn()
+  @Exclude()
   id: number;
 
   @Column('text')
@@ -36,9 +30,9 @@ export class UserEntity {
 
   @Column('text')
   @CreateDateColumn()
-  dateCreated: Date;
+  dateCreated: string;
 
   @Column('text')
   @UpdateDateColumn()
-  dateModified: Date;
+  dateModified: string;
 }

@@ -17,10 +17,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
+        test: /\.tsx?$/i,
+        loader: 'ts-loader',
         include: path.join(__dirname, 'src', 'frontend'),
         exclude: /node_modules/,
+        options: {
+          configFile: 'tsconfig.webpack.json',
+        },
       },
       {
         test: /\.css$/i,

@@ -8,7 +8,6 @@ import { AuthModule } from './auth/auth.module';
     UserModule,
     AuthModule,
     ConfigModule.forRoot({
-      envFilePath: '.development.env',
       isGlobal: true,
     }),
   ],

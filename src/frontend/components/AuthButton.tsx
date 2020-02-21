@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { UserDto } from '../../backend/user/user.entity';
+import { UserDto } from '../../backend/user/user.dto';
 
 interface Props {
   user: UserDto | null;

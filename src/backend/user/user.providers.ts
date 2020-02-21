@@ -9,3 +9,12 @@ export const userProviders = [
     inject: ['DATABASE_CONNECTION'],
   },
 ];
+
+export const userProvidersMock = [
+  {
+    provide: 'USER_REPOSITORY',
+    useFactory: (connection: Connection): Repository<UserEntity> =>
+      connection.getRepository(UserEntity),
+    inject: ['DATABASE_CONNECTION_MOCK'],
+  },
+];

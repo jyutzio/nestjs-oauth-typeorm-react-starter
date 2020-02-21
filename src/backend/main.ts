@@ -25,7 +25,7 @@ async function bootstrap(): Promise<void> {
         httpOnly: true,
         secure: false,
         maxAge: 24 * 60 * 60 * 1000,
-        signed: false,
+        signed: true,
       },
       name: configService.get('COOKIE_NAME'),
       resave: false,

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Route, RouteProps, Redirect } from 'react-router-dom';
-import { UserDto } from '../../backend/user/user.entity';
+import { UserDto } from '../../backend/user/user.dto';
 
 interface Props extends RouteProps {
   user: UserDto | null;

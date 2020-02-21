@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "module": "es6",
+    "jsx": "react",
+    "declaration": false,
+  },
+  "include": [
+    "src/frontend"
+  ],
+}
