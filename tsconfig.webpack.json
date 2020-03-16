@@ -5,7 +5,7 @@
     "jsx": "react",
     "declaration": false,
   },
-  "include": [
-    "src/frontend"
-  ],
+  "exclude": [
+    "src/backend"
+  ]
 }

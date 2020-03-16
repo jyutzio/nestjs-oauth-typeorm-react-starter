@@ -14,8 +14,10 @@
     "strict": true,
     "strictPropertyInitialization": false,
     "esModuleInterop": true,
+    "jsx": "react",
   },
   "include": [
-    "src/backend"
+    "src/backend",
+    "src/frontend"
   ],
 }
