@@ -17,8 +17,8 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       clientSecret: configService.get('GOOGLE_SECRET'),
       callbackURL: configService.get('GOOGLE_CALLBACK'),
       scope: [
-        // We just need the username
-        'https://www.googleapis.com/auth/userinfo.email',
+        // I don't think I need the line below
+        // 'https://www.googleapis.com/auth/userinfo.email',
         'https://www.googleapis.com/auth/userinfo.profile',
       ],
     });
@@ -27,16 +27,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   public async validate(
     _accessToken: string,
     _refreshToken: string,
-    profile: Profile
+    { provider, id, displayName }: Profile
   ): Promise<UserEntity> {
-    const user = await this.userService.findOrCreate(
-      profile.provider,
-      profile.id,
-      profile.username
-    );
-    if (user) {
-      return user;
+    const user = await this.userService.findOrCreate(provider, id, displayName);
+    if (!user) {
+      throw new UnauthorizedException();
     }
-    throw new UnauthorizedException();
+    return user;
   }
 }

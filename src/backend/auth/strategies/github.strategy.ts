@@ -22,16 +22,12 @@ export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
   public async validate(
     _accessToken: string,
     _refreshToken: string,
-    profile: Profile
+    { provider, id, username }: Profile
   ): Promise<UserEntity> {
-    const user = await this.userService.findOrCreate(
-      profile.provider,
-      profile.id,
-      profile.username
-    );
-    if (user) {
-      return user;
+    const user = await this.userService.findOrCreate(provider, id, username);
+    if (!user) {
+      throw new UnauthorizedException();
     }
-    throw new UnauthorizedException();
+    return user;
   }
 }
