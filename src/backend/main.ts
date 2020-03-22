@@ -6,9 +6,13 @@ import session from 'express-session';
 import passport from 'passport';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
+import { Logger } from './logger';
 
 async function bootstrap(): Promise<void> {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  // Create instance and apply logger
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    logger: Logger,
+  });
   const configService: ConfigService = app.get(ConfigService);
 
   if (configService.get('NODE_ENV') === 'development') {

@@ -4,3 +4,4 @@ build/
 coverage/
 .env
 database.sqlite
+.log

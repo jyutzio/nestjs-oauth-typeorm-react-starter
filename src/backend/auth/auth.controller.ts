@@ -1,9 +1,18 @@
-import { Controller, Get, UseGuards, Req, Res } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  UseGuards,
+  Req,
+  Res,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Request, Response } from 'express';
 import { GoogleGuard, GithubGuard } from '../common/guards';
+import { LoggingInterceptor } from '../common/interceptors/logging.interceptor';
 
 @Controller('auth')
+@UseInterceptors(LoggingInterceptor)
 export class AuthController {
   private readonly publicURL: string;
   private readonly cookieName: string;

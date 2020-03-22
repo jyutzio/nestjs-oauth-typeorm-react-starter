@@ -3,9 +3,10 @@ import { DatabaseModule } from '../database/database.module';
 import { userProviders } from './user.providers';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
+import { LoggerModule } from '../logger/logger.module';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [LoggerModule, DatabaseModule],
   providers: [...userProviders, UserService],
   controllers: [UserController],
   exports: [UserService],
