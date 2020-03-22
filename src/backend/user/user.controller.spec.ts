@@ -1,12 +1,12 @@
 import { Test } from '@nestjs/testing';
-import { UserModule } from './user.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserController } from './user.controller';
 import { UserEntity } from './user.entity';
-// import { UserService } from './user.service';
+import { UserService } from './user.service';
+import { LoggerModule } from '../logger/logger.module';
 
 describe('User Controller', () => {
   let userController: UserController;
-  // let userService: UserService;
 
   const user: UserEntity = {
     id: 1,
@@ -19,11 +19,22 @@ describe('User Controller', () => {
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
-      imports: [UserModule],
+      imports: [
+        TypeOrmModule.forRoot({
+          type: 'sqlite',
+          database: ':memory:',
+          synchronize: true,
+          logging: false,
+          entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+        }),
+        TypeOrmModule.forFeature([UserEntity]),
+        LoggerModule,
+      ],
+      providers: [UserService],
+      controllers: [UserController],
     }).compile();
 
     userController = module.get<UserController>(UserController);
-    // userService = module.get<UserService>(UserService);
   });
 
   describe('getUser', () => {

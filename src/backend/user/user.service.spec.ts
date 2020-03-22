@@ -1,20 +1,27 @@
 import { Test } from '@nestjs/testing';
-import { DatabaseModule } from '../database/database.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserService } from './user.service';
-import { userProvidersMock } from './user.providers';
+import { UserEntity } from './user.entity';
 
 describe('User Service', () => {
   let userService: UserService;
-  // let userRepository: UserRepository;
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
-      imports: [DatabaseModule],
-      providers: [...userProvidersMock, UserService],
+      imports: [
+        TypeOrmModule.forRoot({
+          type: 'sqlite',
+          database: ':memory:',
+          synchronize: true,
+          logging: false,
+          entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+        }),
+        TypeOrmModule.forFeature([UserEntity]),
+      ],
+      providers: [UserService],
     }).compile();
 
     userService = module.get<UserService>(UserService);
-    // userRepository = module.get<Repository<UserEntity>>('USER_REPOSITORY');
   });
 
   it('should create a new user', async () => {
