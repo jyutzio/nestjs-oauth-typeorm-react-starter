@@ -9,17 +9,17 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { Request, Response } from 'express';
 import { GoogleGuard, GithubGuard } from '../common/guards';
-import { LoggingInterceptor } from '../common/interceptors/logging.interceptor';
+import { LoggingInterceptor } from '../common/interceptors';
 
 @Controller('auth')
 @UseInterceptors(LoggingInterceptor)
 export class AuthController {
-  private readonly publicURL: string;
+  private readonly frontendURL: string;
   private readonly cookieName: string;
 
   constructor(private readonly configService: ConfigService) {
-    this.publicURL = configService.get('PUBLIC_URL') || 'http://localhost';
-    this.cookieName = configService.get('PUBLIC_URL') || 'nest';
+    this.frontendURL = configService.get('FRONTEND_URL') || 'http://localhost';
+    this.cookieName = configService.get('COOKIE_NAME') || 'nest';
   }
 
   @Get('google')
@@ -31,7 +31,7 @@ export class AuthController {
   @Get('google/callback')
   @UseGuards(GoogleGuard)
   public googleCallback(@Res() res: Response): void {
-    return res.redirect(this.publicURL);
+    return res.redirect(this.frontendURL);
   }
 
   @Get('github')
@@ -43,7 +43,7 @@ export class AuthController {
   @Get('github/callback')
   @UseGuards(GithubGuard)
   public githubCallback(@Res() res: Response): void {
-    return res.redirect(this.publicURL);
+    return res.redirect(this.frontendURL);
   }
 
   @Get('logout')
@@ -52,6 +52,6 @@ export class AuthController {
     req.session!.destroy((): void => undefined);
     req.logout();
     res.clearCookie(this.cookieName);
-    return res.redirect(this.publicURL);
+    return res.redirect(this.frontendURL);
   }
 }

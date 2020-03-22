@@ -6,7 +6,7 @@ export function useProfile(): [UserDto | null, boolean] {
   const [profile, setProfile] = useState<UserDto | null>(null);
 
   useEffect(() => {
-    fetch('http://localhost:3000/profile', {
+    fetch('http://localhost:3000/user', {
       mode: 'cors',
       credentials: 'include',
     })

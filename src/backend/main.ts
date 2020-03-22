@@ -17,7 +17,7 @@ async function bootstrap(): Promise<void> {
 
   if (configService.get('NODE_ENV') === 'development') {
     app.enableCors({
-      origin: configService.get('PUBLIC_URL'),
+      origin: configService.get('FRONTEND_URL'),
       credentials: true,
     });
   }
