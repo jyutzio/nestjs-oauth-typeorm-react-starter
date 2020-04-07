@@ -2,8 +2,37 @@ import { LoggerService } from '@nestjs/common';
 import winston from 'winston';
 import { yellow } from 'colors/safe';
 
-export class WinstonLogger implements LoggerService {
-  constructor(private readonly logger: winston.Logger) {}
+export class Logger implements LoggerService {
+  private readonly logger: winston.Logger;
+
+  constructor() {
+    const { combine, timestamp, printf, colorize } = winston.format;
+
+    const consoleFormat = printf(({ message, timestamp, context, trace }) => {
+      return `${timestamp} ${yellow(`[${context}]`)} ${message} ${
+        trace ? `\n${trace}` : ''
+      }`;
+    });
+    const fileFormat = printf(
+      ({ level, message, timestamp, context, trace }) => {
+        return `${timestamp} ${level} ${context} ${message} ${
+          trace ? `\n${trace}` : ''
+        }`;
+      }
+    );
+
+    this.logger = winston.createLogger({
+      transports: [
+        new winston.transports.Console({
+          format: combine(timestamp(), colorize({ all: true }), consoleFormat),
+        }),
+        new winston.transports.File({
+          filename: '.log',
+          format: combine(timestamp(), fileFormat),
+        }),
+      ],
+    });
+  }
 
   public log(message: string, context?: string): winston.Logger {
     return this.logger.info(message, { context });
@@ -29,30 +58,3 @@ export class WinstonLogger implements LoggerService {
     return this.logger.verbose(message, { context });
   }
 }
-
-const { combine, timestamp, printf, colorize } = winston.format;
-
-const consoleFormat = printf(({ message, timestamp, context, trace }) => {
-  return `${timestamp} ${yellow(`[${context}]`)} ${message} ${
-    trace ? `\n${trace}` : ''
-  }`;
-});
-const fileFormat = printf(({ level, message, timestamp, context, trace }) => {
-  return `${timestamp} ${level} ${context} ${message} ${
-    trace ? `\n${trace}` : ''
-  }`;
-});
-
-export const Logger = new WinstonLogger(
-  winston.createLogger({
-    transports: [
-      new winston.transports.Console({
-        format: combine(timestamp(), colorize({ all: true }), consoleFormat),
-      }),
-      new winston.transports.File({
-        filename: '.log',
-        format: combine(timestamp(), fileFormat),
-      }),
-    ],
-  })
-);

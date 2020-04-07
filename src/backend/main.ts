@@ -16,7 +16,7 @@ const RedisStore = connect(session);
 async function bootstrap(): Promise<void> {
   // Create instance and apply logger
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-    logger: Logger,
+    logger: new Logger(),
   });
 
   // Get env variables
